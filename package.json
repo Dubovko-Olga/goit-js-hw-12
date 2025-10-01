@@ -17,6 +17,7 @@
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.52.3",
     "axios": "^1.12.2",
     "izitoast": "^1.4.0",
     "simplelightbox": "^2.14.3",
