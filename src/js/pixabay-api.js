@@ -25,3 +25,5 @@ export async function getImagesByQuery(query, page = 1) {
     throw error;
   }
 }
+
+

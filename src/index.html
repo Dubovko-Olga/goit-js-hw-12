@@ -10,17 +10,24 @@
 
 
 <body>
-<form id="search-form" class="form">
-  <input type="text" name="searchQuery" placeholder="Search..." />
-  <button class="form-button" type="submit">Search</button>
-</form>
-<span id="top-loader" class="loader is-hidden">Loading images, please wait...</span>
-<ul class="gallery"></ul>
+  
+ 
 
-<button class="load-more is-hidden">Load more</button>
+ 
+  <form id="search-form" class="form">
+    <input type="text" name="searchQuery" placeholder="Search..." />
+    <button class="form-button" type="submit">Search</button>
+  </form>
 
-<span id="bottom-loader" class="loader is-hidden">Loading images, please wait...</span>
+  <span class="loader is-hidden" id="top-loader">Loading images, please wait...</span>
+  <ul class="gallery"></ul>
+
+  
+  <button class="load-more is-hidden">Load more</button>
+
+  <span class="loader is-hidden" id="bottom-loader">Loading images, please wait...</span>
 
   <script type="module" src="./main.js"></script>
 </body>
+
 </html>

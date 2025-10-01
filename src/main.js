@@ -11,7 +11,6 @@ import {
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -19,6 +18,8 @@ function delay(ms) {
 const form = document.getElementById('search-form');
 const searchInput = form.querySelector('input[name="searchQuery"]');
 const loadMoreBtn = document.querySelector('.load-more');
+const topLoader = document.getElementById('top-loader');
+const bottomLoader = document.getElementById('bottom-loader');
 
 let currentPage = 1;
 let currentQuery = '';
@@ -44,14 +45,12 @@ form.addEventListener('submit', async event => {
   hideLoadMoreButton();
   showLoader('top');
 
-
   await new Promise(requestAnimationFrame);
 
   try {
-   
     const [data] = await Promise.all([
       getImagesByQuery(currentQuery, currentPage),
-      delay(700), 
+      delay(700),
     ]);
 
     totalHits = data.totalHits;
@@ -107,7 +106,6 @@ loadMoreBtn.addEventListener('click', async () => {
       });
     }
 
-    
     const firstCard = document.querySelector('.gallery li');
     if (firstCard) {
       const { height: cardHeight } = firstCard.getBoundingClientRect();
