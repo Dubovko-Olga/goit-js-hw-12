@@ -24,6 +24,7 @@ const bottomLoader = document.getElementById('bottom-loader');
 let currentPage = 1;
 let currentQuery = '';
 let totalHits = 0;
+const PER_PAGE = 15;
 
 form.addEventListener('submit', async event => {
   event.preventDefault();
@@ -40,7 +41,8 @@ form.addEventListener('submit', async event => {
 
   currentQuery = query;
   currentPage = 1;
-
+    totalHits = 0;
+    
   clearGallery();
   hideLoadMoreButton();
   showLoader('top');
@@ -96,14 +98,19 @@ loadMoreBtn.addEventListener('click', async () => {
     createGallery(data.hits);
 
     const totalPages = Math.ceil(totalHits / 15);
-    if (currentPage < totalPages) {
-      showLoadMoreButton();
-    } else {
+
+    console.log('Current Page:', currentPage);
+    console.log('Total Pages:', totalPages);
+
+    if (currentPage >= totalPages) {
+      hideLoadMoreButton();
       iziToast.info({
         title: 'End',
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
       });
+    } else {
+      showLoadMoreButton();
     }
 
     const firstCard = document.querySelector('.gallery li');
