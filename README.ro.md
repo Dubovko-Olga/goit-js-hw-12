@@ -101,3 +101,6 @@ comanda `build` din fișierul `package.json`.
 1. După fiecare push către branch-ul `main` a repository-ului GitHub, se execută un script special (GitHub Action) din fișierul `.github/workflows/deploy.yml`.
 2. Toate fișierele din repository sunt copiate pe server, unde proiectul se inițializează și trece prin linting și asamblare înainte de deployment.
 3. Dacă toți pașii sunt reușiți, versiunea de producție asamblată a fișierelor proiectului este trimisă la branch-ul `gh-pages`. În caz contrar, log-ul de execuție al scriptului va indica care este problema.
+
+
+

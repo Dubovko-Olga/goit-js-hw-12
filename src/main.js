@@ -11,10 +11,6 @@ import {
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const form = document.getElementById('search-form');
 const searchInput = form.querySelector('input[name="searchQuery"]');
 const loadMoreBtn = document.querySelector('.load-more');
@@ -47,14 +43,8 @@ form.addEventListener('submit', async event => {
   hideLoadMoreButton();
   showLoader('top');
 
-  await new Promise(requestAnimationFrame);
-
   try {
-    const [data] = await Promise.all([
-      getImagesByQuery(currentQuery, currentPage),
-      delay(700),
-    ]);
-
+    const data = await getImagesByQuery(currentQuery, currentPage);
     totalHits = data.totalHits;
 
     if (data.hits.length === 0) {
@@ -72,15 +62,16 @@ form.addEventListener('submit', async event => {
 
     const totalPages = Math.ceil(totalHits / PER_PAGE);
 
-    if (totalPages > currentPage) {
-      showLoadMoreButton();
-    } else {
-      hideLoadMoreButton();
+    
+    if (currentPage >= totalPages) {
+      hideLoadMoreButton(); 
       iziToast.info({
         title: 'End',
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
       });
+    } else {
+      showLoadMoreButton(); 
     }
   } catch (error) {
     iziToast.error({
@@ -93,45 +84,42 @@ form.addEventListener('submit', async event => {
   }
 });
 
-
-
 loadMoreBtn.addEventListener('click', async () => {
+  
   const totalPages = Math.ceil(totalHits / PER_PAGE);
 
   if (currentPage >= totalPages) {
+    
     hideLoadMoreButton();
     iziToast.info({
       title: 'End',
       message: "We're sorry, but you've reached the end of search results.",
       position: 'topRight',
     });
-    return; // НЕ робити новий запит
+    return;
   }
 
+ 
   currentPage += 1;
 
   showLoader('bottom');
   hideLoadMoreButton();
 
-  await new Promise(requestAnimationFrame);
-
   try {
-    const [data] = await Promise.all([
-      getImagesByQuery(currentQuery, currentPage),
-      delay(700),
-    ]);
+    const data = await getImagesByQuery(currentQuery, currentPage);
 
     createGallery(data.hits);
 
+    
     if (currentPage >= totalPages) {
-      hideLoadMoreButton();
+      hideLoadMoreButton(); 
       iziToast.info({
         title: 'End',
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
       });
     } else {
-      showLoadMoreButton();
+      showLoadMoreButton(); 
     }
 
     const firstCard = document.querySelector('.gallery li');
@@ -152,11 +140,3 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader('bottom');
   }
 });
-
-
-
-
-
-
-
-
