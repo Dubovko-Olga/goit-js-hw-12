@@ -41,8 +41,8 @@ form.addEventListener('submit', async event => {
 
   currentQuery = query;
   currentPage = 1;
-    totalHits = 0;
-    
+  totalHits = 0;
+
   clearGallery();
   hideLoadMoreButton();
   showLoader('top');
@@ -64,11 +64,23 @@ form.addEventListener('submit', async event => {
           'There are no images matching your search query. Please try again!',
         position: 'topRight',
       });
+      hideLoadMoreButton();
+      return;
+    }
+
+    createGallery(data.hits);
+
+    const totalPages = Math.ceil(totalHits / PER_PAGE);
+
+    if (totalPages > currentPage) {
+      showLoadMoreButton();
     } else {
-      createGallery(data.hits);
-      if (totalHits > currentPage * 15) {
-        showLoadMoreButton();
-      }
+      hideLoadMoreButton();
+      iziToast.info({
+        title: 'End',
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
     }
   } catch (error) {
     iziToast.error({
@@ -81,7 +93,21 @@ form.addEventListener('submit', async event => {
   }
 });
 
+
+
 loadMoreBtn.addEventListener('click', async () => {
+  const totalPages = Math.ceil(totalHits / PER_PAGE);
+
+  if (currentPage >= totalPages) {
+    hideLoadMoreButton();
+    iziToast.info({
+      title: 'End',
+      message: "We're sorry, but you've reached the end of search results.",
+      position: 'topRight',
+    });
+    return; // НЕ робити новий запит
+  }
+
   currentPage += 1;
 
   showLoader('bottom');
@@ -96,11 +122,6 @@ loadMoreBtn.addEventListener('click', async () => {
     ]);
 
     createGallery(data.hits);
-
-    const totalPages = Math.ceil(totalHits / 15);
-
-    console.log('Current Page:', currentPage);
-    console.log('Total Pages:', totalPages);
 
     if (currentPage >= totalPages) {
       hideLoadMoreButton();
@@ -131,3 +152,11 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader('bottom');
   }
 });
+
+
+
+
+
+
+
+
