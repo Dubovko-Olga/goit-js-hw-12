@@ -43,13 +43,11 @@ export function clearGallery() {
 export function showLoader(position = 'top') {
   if (position === 'top') {
     if (topLoader) {
-     
       topLoader.classList.remove('is-hidden');
       topLoader.classList.add('is-visible');
     }
   } else {
     if (bottomLoader) {
-      
       bottomLoader.classList.remove('is-hidden');
       bottomLoader.classList.add('is-visible');
       loadMoreBtn.classList.add('is-hidden'); 
@@ -60,13 +58,11 @@ export function showLoader(position = 'top') {
 export function hideLoader(position = 'top') {
   if (position === 'top') {
     if (topLoader) {
-      
       topLoader.classList.add('is-hidden');
       topLoader.classList.remove('is-visible');
     }
   } else {
     if (bottomLoader) {
-     
       bottomLoader.classList.add('is-hidden');
       bottomLoader.classList.remove('is-visible');
       loadMoreBtn.classList.remove('is-hidden'); 
@@ -76,14 +72,12 @@ export function hideLoader(position = 'top') {
 
 export function showLoadMoreButton() {
   if (loadMoreBtn) {
-    
     loadMoreBtn.classList.remove('is-hidden');
   }
 }
 
 export function hideLoadMoreButton() {
   if (loadMoreBtn) {
-    
     loadMoreBtn.classList.add('is-hidden');
   }
 }

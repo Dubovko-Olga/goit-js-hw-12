@@ -1,5 +1,3 @@
-
-
 import axios from 'axios';
 
 const BASE_URL = 'https://pixabay.com/api/';
@@ -25,5 +23,3 @@ export async function getImagesByQuery(query, page = 1) {
     throw error;
   }
 }
-
-
